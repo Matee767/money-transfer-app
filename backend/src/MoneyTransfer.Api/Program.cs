@@ -9,8 +9,19 @@ builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+// Demo mode: set UseInMemoryDatabase=true to run the API without SQL Server
+// (data lives in process memory and is lost on restart). Used for quick local
+// demos; the docker compose setup always uses SQL Server.
+if (builder.Configuration.GetValue<bool>("UseInMemoryDatabase"))
+{
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseInMemoryDatabase("MoneyTransfer"));
+}
+else
+{
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+}
 
 builder.Services.AddScoped<ITransferService, TransferService>();
 

@@ -17,5 +17,8 @@ dist/
 .DS_Store
 Thumbs.db
 
+# Archives (e.g. manual backups of this folder)
+*.zip
+
 # Claude Code local settings
 .claude/settings.local.json

@@ -104,11 +104,14 @@ Failures return an [RFC 7807 problem details](https://datatracker.ietf.org/doc/h
 
 Requires the .NET 8 SDK, Node.js 20+, and a reachable SQL Server
 (the connection string default is in `backend/src/MoneyTransfer.Api/appsettings.json`).
+No SQL Server at hand? Set `UseInMemoryDatabase=true` and the API runs entirely
+in memory — data is lost on restart, but it's perfect for a quick demo.
 
 ```bash
 # API — http://localhost:8080
 cd backend
-ASPNETCORE_URLS=http://localhost:8080 dotnet run --project src/MoneyTransfer.Api
+ASPNETCORE_URLS=http://localhost:8080 UseInMemoryDatabase=true \
+  dotnet run --project src/MoneyTransfer.Api
 
 # Frontend dev server — http://localhost:5173 (proxies /api to :8080)
 cd frontend

@@ -14,9 +14,9 @@ public record TransactionDto(
     DateTime CreatedAtUtc);
 
 public record TransferRequest(
-    [property: Required] int FromAccountId,
-    [property: Required] int ToAccountId,
-    [property: Required, Range(0.01, double.MaxValue, ErrorMessage = "Amount must be greater than zero.")]
+    int FromAccountId,
+    int ToAccountId,
+    [Range(0.01, double.MaxValue, ErrorMessage = "Amount must be greater than zero.")]
     decimal Amount);
 
 /// <summary>
